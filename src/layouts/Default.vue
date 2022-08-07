@@ -1,6 +1,5 @@
 <template>
-	<div>
-		This is the default layout
+	<div class="h-screen w-full bg-grey flex justify-center items-center">
 		<slot />
 	</div>
 </template>

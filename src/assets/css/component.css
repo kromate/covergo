@@ -1,0 +1,15 @@
+@layer components {
+    .field {
+        @apply flex flex-col w-full mt-5;
+    }
+    label,
+    .label {
+        @apply font-medium text-base text-secondary mb-2;
+    }
+    .input {
+        @apply border border-divider w-full h-10 px-6 rounded-[10px]  outline-none hover:border-2 focus:border focus:border-primary transition-all duration-200 ease-in;
+    }
+    .btn-primary {
+        @apply h-12 w-full flex items-center justify-center font-semibold bg-primary text-white  rounded-[10px]  outline-none transition-all duration-200 ease-in disabled:cursor-not-allowed;
+    }
+}
