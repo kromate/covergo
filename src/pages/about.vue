@@ -1,9 +1,10 @@
+
 <template>
-	<div class="w-[500px] min-h-[250px] max-w-[95%] bg-white rounded-xl shadow flex flex-col items-center py-5 px-6">
+	<div class="w-[500px] min-h-[250px] max-w-[95%] bg-white rounded-xl shadow flex flex-col items-center py-5 px-14">
 		<h1 class="font-semibold">
 			Tell Us about Yourself
 		</h1>
-		<form class="w-[25rem] mt-6" @submit.prevent="login">
+		<form class="w-full mt-6" @submit.prevent="login">
 			<div class="flex flex-col gap-3 items-center w-full">
 				<div class="field">
 					<label for="name" class="label"> Name </label>
@@ -27,7 +28,7 @@
 				</div>
 				<div class="field">
 					<label for="location" class="label"> Where do you live ? </label>
-					<select id="location" name="location" class="input">
+					<select id="location" v-model="currency" name="location" class="input">
 						<option value="HKD">
 							Hong Kong
 						</option>
@@ -40,22 +41,34 @@
 					</select>
 				</div>
 
-				<div class="flex items-center mr-4 mb-4">
-					<input id="radio1" type="radio" name="radio" class="hidden" checked>
-					<label for="radio1" class="flex items-center cursor-pointer">
-						<span class="w-4 h-4 inline-block mr-1 border border-grey" />
-						Best choice</label>
+				<div class="field">
+					<label for="packageType" class="label">Select a Package</label>
+					<div class="flex flex-col">
+						<div v-for="p in packages" :key="p.name" class="flex items-center mr-4 mb-4">
+							<input :id="p.name" type="radio" name="radio" class="hidden" required>
+							<label :for="p.name" class="flex items-center cursor-pointer">
+								<span class="w-4 h-4 inline-block mr-1 border border-grey" />
+								{{ p.name }} {{ currency }}</label>
+						</div>
+					</div>
 				</div>
+
+				<h2 class="font-medium bg-grey px-5 py-1.5 rounded">
+					Your Premium Package is 500HKD
+				</h2>
 			</div>
 
-			<div class="flex items-center mt-10 w-full">
-				<div class="flex flex-col gap-6  items-center justify-center w-full">
-					<button
-						class="btn-primary"
-					>
-						Sign in
-					</button>
-				</div>
+			<div class="flex items-center justify-between mt-10 w-full">
+				<button
+					class="btn-outline"
+				>
+					back
+				</button>
+				<button
+					class="btn-primary"
+				>
+					Next
+				</button>
 			</div>
 		</form>
 	</div>
@@ -65,8 +78,12 @@
 definePageMeta({
 	layout: 'default'
 })
-
-const packages = [
-    {name:}
-]
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const packages = ref([
+    { name: 'Standard' },
+    { name: 'Safe' },
+    { name: 'Super Safe' }
+])
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const currency = ref('HKD')
 </script>
