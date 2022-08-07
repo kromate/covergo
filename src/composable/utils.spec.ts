@@ -6,8 +6,8 @@ describe('getPercentageValue', () => {
         expect(getPercentageValue(1000, 10)).toBeTypeOf('number')
         expect(getPercentageValue(1000, 10)).toBe(100)
     })
-	// test('Check for falsy or negatives', () => {
-    //     expect(fromMinorUnit('s')).toBeTypeOf('string')
-    //     expect(fromMinorUnit('')).toBe('A number is required')
-    // })
+	test('Check for falsy or negatives', () => {
+        expect(getPercentageValue(0, 0)).toBeTypeOf('number')
+        expect(getPercentageValue(0, 0)).toBe(0)
+    })
 })

@@ -8,7 +8,11 @@
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
-		"lint": "eslint . --ext .ts,.vue"
+		"lint": "eslint . --ext .ts,.vue",
+		"test": "vitest run",
+		"coverage": "vitest run --coverage",
+		"test:ui": "vitest --ui",
+		"cy": "cypress open"
 	},
 	"lint-staged": {
 		"*.{js,vue,ts}": [
