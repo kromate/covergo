@@ -9,19 +9,19 @@
 				<div class="flex gap-2">
 					<label for="name" class="label"> Name: </label>
 					<p class="text-primary italic">
-						John
+						{{ formDetails.name.value }}
 					</p>
 				</div>
 				<div class="flex gap-2">
 					<label for="name" class="label"> Age: </label>
 					<p class="text-primary italic">
-						24
+						{{ formDetails.name.value }}
 					</p>
 				</div>
 				<div class="flex gap-2">
 					<label for="name" class="label"> Where do you live: </label>
 					<p class="text-primary italic">
-						24
+						{{ formDetails.name.value }}
 					</p>
 				</div>
 
@@ -57,15 +57,12 @@
 </template>
 
 <script setup lang="ts">
+import { useInsurance } from '@/composable/insurance'
+
+const { formDetails } = useInsurance()
 definePageMeta({
 	layout: 'default'
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const packages = ref([
-    { name: 'Standard' },
-    { name: 'Safe' },
-    { name: 'Super Safe' }
-])
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const currency = ref('HKD')
 </script>

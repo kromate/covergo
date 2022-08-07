@@ -4,12 +4,13 @@
 		<h1 class="font-semibold">
 			Tell Us about Yourself
 		</h1>
-		<form class="w-full mt-6" @submit.prevent="login">
+		<form class="w-full mt-6" @submit.prevent="nextPage">
 			<div class="flex flex-col gap-3 items-center w-full">
 				<div class="field">
 					<label for="name" class="label"> Name </label>
 					<input
 						id="name"
+						v-model="formDetails.name.value"
 						type="text"
 						class="input"
 						required
@@ -20,6 +21,7 @@
 					<label for="age" class="label"> Age </label>
 					<input
 						id="age"
+						v-model="formDetails.age.value"
 						type="number"
 						class="input"
 						required
@@ -28,7 +30,7 @@
 				</div>
 				<div class="field">
 					<label for="location" class="label"> Where do you live ? </label>
-					<select id="location" v-model="currency" name="location" class="input">
+					<select id="location" v-model="formDetails.currency.value" name="location" class="input">
 						<option value="HKD">
 							Hong Kong
 						</option>
@@ -45,16 +47,24 @@
 					<label for="packageType" class="label">Select a Package</label>
 					<div class="flex flex-col">
 						<div v-for="p in packages" :key="p.name" class="flex items-center mr-4 mb-4">
-							<input :id="p.name" type="radio" name="radio" class="hidden" required>
+							<input
+								:id="p.name"
+								v-model="formDetails.packageType.value"
+								:value="p.value"
+								type="radio"
+								name="radio"
+								class="hidden"
+								required
+							>
 							<label :for="p.name" class="flex items-center cursor-pointer">
 								<span class="w-4 h-4 inline-block mr-1 border border-grey" />
-								{{ p.name }} {{ currency }}</label>
+								{{ p.name }} {{ formDetails.currency.value }}</label>
 						</div>
 					</div>
 				</div>
 
-				<h2 class="font-medium bg-grey px-5 py-1.5 rounded">
-					Your Premium Package is 500HKD
+				<h2 v-if="formDetails.premium.value" class="font-medium bg-grey px-5 py-1.5 rounded">
+					Your Premium Package is {{ formDetails.premium.value }} {{ formDetails.currency.value }}
 				</h2>
 			</div>
 
@@ -75,15 +85,15 @@
 </template>
 
 <script setup lang="ts">
+import { useInsurance, packages } from '@/composable/insurance'
+
+const { formDetails, nextPage } = useInsurance()
+
 definePageMeta({
 	layout: 'default'
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const packages = ref([
-    { name: 'Standard' },
-    { name: 'Safe' },
-    { name: 'Super Safe' }
-])
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const currency = ref('HKD')
 </script>

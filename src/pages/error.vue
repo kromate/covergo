@@ -6,9 +6,9 @@
 		<p class="text-center">
 			Your age is over our accepted Limit <br> We are sorry but we can not insure you
 		</p>
-		<button class="btn-primary mt-6 ">
+		<nuxt-link to="/" class="btn-primary mt-6 ">
 			Ok :(
-		</button>
+		</nuxt-link>
 	</div>
 </template>
 
