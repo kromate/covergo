@@ -30,15 +30,9 @@
 				</div>
 				<div class="field">
 					<label for="location" class="label"> Where do you live ? </label>
-					<select id="location" v-model="formDetails.currency.value" name="location" class="input">
-						<option value="HKD">
-							Hong Kong
-						</option>
-						<option value="USD">
-							USA
-						</option>
-						<option value="AUD">
-							Australia
+					<select id="location" v-model="formDetails.location.value" name="location" class="input">
+						<option v-for="l in locations" :key="l.value" :value="l">
+							{{ l.name }}
 						</option>
 					</select>
 				</div>
@@ -50,30 +44,34 @@
 							<input
 								:id="p.name"
 								v-model="formDetails.packageType.value"
-								:value="p.value"
+								:value="p"
 								type="radio"
 								name="radio"
 								class="hidden"
 								required
+								:disabled="!baseAmount"
 							>
 							<label :for="p.name" class="flex items-center cursor-pointer">
-								<span class="w-4 h-4 inline-block mr-1 border border-grey" />
-								{{ p.name }} {{ formDetails.currency.value }}</label>
+								<span class="w-4 h-4 inline-block mr-1 border border-grey span" />
+								{{ p.name }}
+								<span v-if="baseAmount && p.value !== 'standard'">(+{{ getPercentageValue(baseAmount, p.percent) }}  {{ formDetails.location.value.id }}, {{ p.percent }}%)</span>
+							</label>
 						</div>
 					</div>
 				</div>
 
 				<h2 v-if="formDetails.premium.value" class="font-medium bg-grey px-5 py-1.5 rounded">
-					Your Premium Package is {{ formDetails.premium.value }} {{ formDetails.currency.value }}
+					Your Premium Package is {{ formDetails.premium.value }} {{ formDetails.location.value.id }}
 				</h2>
 			</div>
 
 			<div class="flex items-center justify-between mt-10 w-full">
-				<button
+				<nuxt-link
+					to="/"
 					class="btn-outline"
 				>
 					back
-				</button>
+				</nuxt-link>
 				<button
 					class="btn-primary"
 				>
@@ -85,15 +83,13 @@
 </template>
 
 <script setup lang="ts">
-import { useInsurance, packages } from '@/composable/insurance'
+import { useInsurance, packages, locations } from '@/composable/insurance'
+import { getPercentageValue } from '@/composable/utils'
 
-const { formDetails, nextPage } = useInsurance()
+const { formDetails, nextPage, baseAmount } = useInsurance()
 
 definePageMeta({
 	layout: 'default'
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const currency = ref('HKD')
 </script>

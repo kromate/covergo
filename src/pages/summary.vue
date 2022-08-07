@@ -15,26 +15,26 @@
 				<div class="flex gap-2">
 					<label for="name" class="label"> Age: </label>
 					<p class="text-primary italic">
-						{{ formDetails.name.value }}
+						{{ formDetails.age.value }}
 					</p>
 				</div>
 				<div class="flex gap-2">
 					<label for="name" class="label"> Where do you live: </label>
 					<p class="text-primary italic">
-						{{ formDetails.name.value }}
+						{{ formDetails.location.value.name }}
 					</p>
 				</div>
 
 				<div class="flex gap-2">
 					<label for="name" class="label"> Package: </label>
 					<p class="text-primary italic">
-						Standard
+						{{ formDetails.packageType.value.name }}
 					</p>
 				</div>
 				<div class="flex gap-2">
 					<label for="name" class="label"> Premium: </label>
 					<p class="text-primary italic">
-						24
+						{{ premiumAmount.value }} {{ formDetails.location.value.id }}
 					</p>
 				</div>
 			</div>
@@ -48,6 +48,7 @@
 				</button>
 				<button
 					class="btn-primary"
+					@click="$router.push('/')"
 				>
 					Buy
 				</button>
@@ -61,8 +62,11 @@ import { useInsurance } from '@/composable/insurance'
 
 const { formDetails } = useInsurance()
 definePageMeta({
-	layout: 'default'
+	layout: 'default',
+    middleware: [() => {
+       const { formDetails, premiumAmount } = useInsurance()
+        if (formDetails.name.value === '' || formDetails.age.value === null || formDetails.location.value === null || formDetails.packageType.value === null) return navigateTo('/')
+    }]
 })
 
-const currency = ref('HKD')
 </script>

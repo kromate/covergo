@@ -21,20 +21,23 @@ h2 {
     font-size: clamp(14px, 3vw, 22px) !important;
 }
 
-input[type='radio'] + label span {
+input[type='radio'] + label .span {
     transition: background 0.2s, transform 0.2s;
 }
 
-input[type='radio'] + label span:hover,
-input[type='radio'] + label:hover span {
+input[type='radio'] + label .span:hover,
+input[type='radio'] + label:hover .span {
     transform: scale(1.2);
 }
 
-input[type='radio']:checked + label span {
+input[type='radio']:checked + label .span {
     background-color: var(--primary);
     box-shadow: 0px 0px 0px 2px white inset;
 }
 
 input[type='radio']:checked + label {
     color: var(--primary);
+}
+input[type='radio']:disabled + label {
+    color: var(--light_grey);
 }
