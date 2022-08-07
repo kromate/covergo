@@ -1,7 +1,12 @@
 <template>
-	<div class="w-[500px] h-[250px] bg-white rounded-xl shadow">
-		<h1 >Hello There !</h1>
+	<div class="w-[500px] min-h-[250px] max-w-[95%] bg-white rounded-xl shadow flex flex-col items-center py-5 px-6">
+		<h1 class="font-semibold">
+			Hello There !
+		</h1>
 		<p>Let's by some insurance it's going to take a few steps</p>
+		<router-link to="/about" class="btn-primary mt-6 ">
+			Get Started
+		</router-link>
 	</div>
 </template>
 
@@ -10,5 +15,3 @@ definePageMeta({
 	layout: 'default'
 })
 </script>
-
-<style scoped></style>
