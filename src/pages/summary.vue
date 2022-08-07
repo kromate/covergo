@@ -34,7 +34,7 @@
 				<div class="flex gap-2">
 					<label for="name" class="label"> Premium: </label>
 					<p class="text-primary italic">
-						{{ premiumAmount.value }} {{ formDetails.location.value.id }}
+						{{ premiumAmount }} {{ formDetails.location.value.id }}
 					</p>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { useInsurance } from '@/composable/insurance'
 
-const { formDetails } = useInsurance()
+const { formDetails, premiumAmount } = useInsurance()
 definePageMeta({
 	layout: 'default',
     middleware: [() => {

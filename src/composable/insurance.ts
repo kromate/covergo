@@ -1,28 +1,32 @@
 import { Ref } from 'vue'
 import { getPercentageValue } from './utils'
 
-type locationType =
+type locationTypes =
 	| Ref<{ name: 'Hong Kong'; id: 'HKD'; rate: 1 }>
 	| Ref<{ name: 'USA'; id: 'USD'; rate: 2 }>
 	| Ref<{ name: 'Australia'; id: 'AUD'; rate: 3 }>;
+
+type packageTypes =
+	| Ref<{ name: 'Standard'; value: 'standard', percent: null; }>
+	| Ref<{ name: 'Safe'; value: 'safe'; percent: 50 }>
+	| Ref<{ name: 'Super Safe'; value: 'super'; percent: 75 }>;
+
 interface Insurance {
 	name: Ref<string>;
 	age: Ref<number>;
-	location: locationType;
-	packageType: 'standard' | 'safe' | 'super';
-	premium: Ref<number>;
+	location: locationTypes;
+	packageType: packageTypes;
 }
 
 const formDetails: Insurance = {
 	name: ref(''),
 	age: ref(null),
 	location: ref(null),
-	packageType: ref(null),
-	premium: ref(0)
+	packageType: ref(null)
 }
 
 export const packages = ref([
-	{ name: 'Standard', value: 'standard' },
+	{ name: 'Standard', value: 'standard', percent: null },
 	{ name: 'Safe', value: 'safe', percent: 50 },
 	{ name: 'Super Safe', value: 'super', percent: 75 }
 ])
@@ -41,35 +45,34 @@ export const useInsurance = () => {
 		}
 	}
 
-	const baseAmount = computed({
+		const baseAmount = computed({
 		get: () => {
 			if (
 				formDetails.age.value !== null &&
 				formDetails.location?.value?.rate !== null
-			)
+			) {
 				return 10 * formDetails.age.value * formDetails.location?.value?.rate
-			else return null
-		},
-		set: () => {}
-	})
-	const premiumAmount = computed({
-		get: () => {
-			if (
-				formDetails.age.value !== null &&
-				formDetails.location?.value?.rate !== null
-			)
-				return 10 * formDetails.age.value * formDetails.location?.value?.rate
-			else return null
+			} else return null
 		},
 		set: () => {}
 	})
 
-	watch(formDetails.packageType as any, (value) => {
-        if (value.percent) {
-            formDetails.premium.value = baseAmount.value + getPercentageValue(baseAmount.value, value.percent)
-        } else {
-            formDetails.premium.value = baseAmount.value
-        }
+	const premiumAmount = computed({
+		get: () => {
+			if (
+				formDetails.age.value !== null &&
+				formDetails.location?.value?.rate !== null &&
+				formDetails.packageType?.value !== null
+			) {
+				if (formDetails.packageType.value.percent) {
+					return baseAmount.value + getPercentageValue(baseAmount.value, formDetails.packageType.value.percent)
+				} else {
+					return baseAmount.value
+				}
+			} else return null
+		},
+		set: () => {}
 	})
+
 	return { nextPage, formDetails, baseAmount, premiumAmount }
 }

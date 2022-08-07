@@ -60,8 +60,8 @@
 					</div>
 				</div>
 
-				<h2 v-if="formDetails.premium.value" class="font-medium bg-grey px-5 py-1.5 rounded">
-					Your Premium Package is {{ formDetails.premium.value }} {{ formDetails.location.value.id }}
+				<h2 v-if="premiumAmount" class="font-medium bg-grey px-5 py-1.5 rounded">
+					Your Premium Package is {{ premiumAmount }} {{ formDetails.location.value.id }}
 				</h2>
 			</div>
 
@@ -86,7 +86,7 @@
 import { useInsurance, packages, locations } from '@/composable/insurance'
 import { getPercentageValue } from '@/composable/utils'
 
-const { formDetails, nextPage, baseAmount } = useInsurance()
+const { formDetails, nextPage, baseAmount, premiumAmount } = useInsurance()
 
 definePageMeta({
 	layout: 'default'
