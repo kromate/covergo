@@ -1,22 +1,6 @@
 import { Ref } from 'vue'
 import { getPercentageValue } from './utils'
-
-type locationTypes =
-	| Ref<{ name: 'Hong Kong'; id: 'HKD'; rate: 1 }>
-	| Ref<{ name: 'USA'; id: 'USD'; rate: 2 }>
-	| Ref<{ name: 'Australia'; id: 'AUD'; rate: 3 }>;
-
-type packageTypes =
-	| Ref<{ name: 'Standard'; value: 'standard', percent: null; }>
-	| Ref<{ name: 'Safe'; value: 'safe'; percent: 50 }>
-	| Ref<{ name: 'Super Safe'; value: 'super'; percent: 75 }>;
-
-interface Insurance {
-	name: Ref<string>;
-	age: Ref<number>;
-	location: locationTypes;
-	packageType: packageTypes;
-}
+import { Insurance, locationTypes, packageTypes } from '@/types/insurance'
 
 const formDetails: Insurance = {
 	name: ref(''),
@@ -25,12 +9,12 @@ const formDetails: Insurance = {
 	packageType: ref(null)
 }
 
-export const packages = ref([
+export const packages = ref<packageTypes[]>([
 	{ name: 'Standard', value: 'standard', percent: null },
 	{ name: 'Safe', value: 'safe', percent: 50 },
 	{ name: 'Super Safe', value: 'super', percent: 75 }
 ])
-export const locations = ref([
+export const locations = ref<locationTypes[]>([
 	{ name: 'Hong Kong', id: 'HKD', rate: 1 },
 	{ name: 'USA', id: 'USD', rate: 2 },
 	{ name: 'Australia', id: 'AUD', rate: 3 }
@@ -45,7 +29,7 @@ export const useInsurance = () => {
 		}
 	}
 
-		const baseAmount = computed({
+	const baseAmount = computed({
 		get: () => {
 			if (
 				formDetails.age.value !== null &&
@@ -65,7 +49,13 @@ export const useInsurance = () => {
 				formDetails.packageType?.value !== null
 			) {
 				if (formDetails.packageType.value.percent) {
-					return baseAmount.value + getPercentageValue(baseAmount.value, formDetails.packageType.value.percent)
+					return (
+						baseAmount.value +
+						getPercentageValue(
+							baseAmount.value,
+							formDetails.packageType.value.percent
+						)
+					)
 				} else {
 					return baseAmount.value
 				}
