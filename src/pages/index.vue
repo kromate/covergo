@@ -4,7 +4,7 @@
 			Hello There !
 		</h1>
 		<p>Let's by some insurance it's going to take a few steps</p>
-		<router-link to="/about" class="btn-primary mt-6 ">
+		<router-link to="/form" class="btn-primary mt-6 ">
 			Get Started
 		</router-link>
 	</div>
