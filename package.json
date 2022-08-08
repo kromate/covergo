@@ -1,9 +1,6 @@
 {
 	"private": true,
 	"scripts": {
-		"generate-icon-name-enum": "node bin/generate-icon-name-enum.js",
-		"generate-sprite": "svgstore -o ./src/assets/icons/sprite.svg ./src/assets/icons/source/*.svg",
-		"prestart": "yarn generate-sprite && yarn generate-icon-name-enum",
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
